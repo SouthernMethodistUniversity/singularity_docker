@@ -55,27 +55,32 @@ documentation](https://docs.docker.com).
 1. Header: The header describes the core operating system upon which
    everything else will be built. Most frequently header is used simply to declare
    the Linux distribution and version that you're interested in using.
-    * **Bootstrap:**
-        * **library**
-        * **docker**
-        * **localimage**
-        * Others
-    * **From:**
-    * **Stage:**
+    * **Bootstrap:** Describes from where the initial container image will be sourced
+        * **library** From the [Singularity Container Services](https://cloud.sylabs.io/home)
+        * **docker** From the [Docker Hub](https://hub.docker.com)
+        * **localimage** From a local container image
+        * Others: There are several other options availabe described [here](https://sylabs.io/guides/3.5/user-guide/definition_files.html#other-bootstrap-agents).
+    * **From:** The name or tag of the initial container image
+    * **Stage:** Support of multi-stage container builds, *e.g.* `devel` and `final`.
 2. Sections: The sections part is compresed of several sections that define
    what you want to do inside the container.
-   * **%setup**
-   * **%files**
-   * **%environment**
-   * **%post**
-   * **%runscript**
-   * **%startscript**
-   * **%test**
-   * **%labels**
-   * **%help**
-   * **%app**
+   * **%setup** Commands to be run outside the container before the build. The
+     container's root file system can be access via `${SINGULARITY_ROOTFS}`.
+   * **%files** Copy files to the container of the form `<source> <destination>`
+   * **%environment** Environment variables that will be set at runtime.
+   * **%post** Commands to be run during the containers build process.
+   * **%runscript** Commands to be run via `singularity run` or running the container directly.
+   * **%test** Commands to run at the end of the build process to validate the container image.
+   * **%labels** Add metadata to the contaier, *e.g.* `Author`, `Version`, and `Label`.
+   * **%help** Text that will be displayed via `singularity run-help`.
+   * **%app** Commands for enabling multiple "apps" from a single container.
 
 #### Best Practices
+
+* Install files into operating system standard locations.
+* All files should be owned by system accounts.
+* Document and script the build process rather than making manual changes to a
+  container.
 
 [See](https://sylabs.io/guides/3.5/user-guide/definition_files.html#best-practices-for-build-recipes)
 
