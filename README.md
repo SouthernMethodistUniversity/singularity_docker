@@ -101,18 +101,41 @@ Containers can be uploaded to the [Singularity Container
 Services](https://cloud.sylabs.io/home). This allows for easy versioning of
 containers as you would with files in a Git repository.
 
+`singularity push <container> library://<container_library>`
+
+Free access to [Singularity Container Services](https://cloud.sylabs.io/home) is available.
+
 ### Running Containers
 
-* **run**
-* **exec**
-* **app**
-* **shell**
+* **run** Run the container, which is execute the `%runscript` section of the definition file.
+* **exec** Execute arbitary commands with in the container.
+* **app** Run the apps defined in the `%apps` section of the definition file.
+* **shell** Execute the container's default shell.
 
 ### Running Containers on ManeFrame II (M2)
 
 #### Submitting Jobs Using Containers
 
-#### Using Containers in the HPC Portal
+Singularity containers can be run similarly to many other applications on M2. For executables defined in the `%runscript` section of the definition file, the container can simply be executed as any other executable by giving the path to the container file. Alternatively, the Singularity verbs above can be used to run various executables within the container.
+
+
+```bash
+module load singularity
+singularity exec <path_to_container> python3 python_script.py
+```
+
+Here, a full or relative container file path can be given. The executable is `python3`, which resides inside the container. The Python script `python_script.py` resides outside the container.
+
+If `python3` is defined to run inside the `%runscript` section of the defintion file the following would be equivalent to the example above.
+
+```bash
+module load singularity
+<path_to_container> python_script.py
+```
+
+#### Using Containers with JupyterLab in the HPC Portal
+
+
 
 ### Examples
 
