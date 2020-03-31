@@ -164,6 +164,7 @@ srun -p container -c 1 --mem=6G --pty singularity build --fakeroot --force compl
 srun -p container -c 1 --mem=6G --x11=first --pty ./compliance.sif # Won't work from HPC portal shell access, no X11
 srun -p container -c 1 --mem=6G --pty singularity build --fakeroot --force anaconda.sif anaconda.singularity
 srun -p container -c 1 --mem=6G --pty ./anaconda.sif matrix_multiplication.py
+sbatch anaconda.sbatch
 ```
 
 ### Tasks
