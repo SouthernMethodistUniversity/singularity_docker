@@ -40,13 +40,13 @@
 
 ## Introduction to Containers
 
-Containers are type of operating system virtualization where a single kernel is shared by all operating systems. This is contrasted with virtual machines that provide a virtualized hardware environment upon which an operating system can run. Containers, as such, are light weight compared to virtual machines, but are restricted to a single kernel type, *.e.g.* Linux. The primary benefits on containers are:
+Containers are a type of operating system virtualization where a single kernel is shared by all operating systems. This is contrasted with virtual machines that provide a virtualized hardware environment upon which an operating system can run. Containers, as such, are light weight compared to virtual machines, but are restricted to a single kernel type, *e.g.* Linux. The primary benefits on containers are:
 
 * Isolation
 * Reproducibility
 * Portability
 
-Singularity and Docker are popular toolsets used to create and manage containers on Linux.
+[Singularity](https://sylabs.io) and [Docker](https://www.docker.com) are popular toolsets used to create and manage containers on Linux. For security reasons, Docker is not usually allowed on HPC systems and this includes M2. M2 does have Singularity, which is largely compatible with Docker containers.
 
 ### Singularity and Docker Documentation
 
@@ -61,7 +61,7 @@ documentation](https://docs.docker.com).
 ### Definition File Structure
 
 1. Header: The header describes the core operating system upon which
-   everything else will be built. Most frequently header is used simply to declare
+   everything else will be built. Most frequently the header is simply used to declare
    the Linux distribution and version that you're interested in using.
     * **Bootstrap:** Describes from where the initial container image will be sourced
         * **library** From the [Singularity Container Services](https://cloud.sylabs.io/home)
@@ -94,8 +94,8 @@ documentation](https://docs.docker.com).
 
 `singularity build --fakeroot --force <container_file_name> <container_definition_file>`
 
-Currently on M2 the `singularity` command from `module load singularity/3.5.3`
-must be run via the "container" queue, *.e.g.*:
+Until recently, building Singularity containers required root access. However, recent versions have the `--fakeroot` flag, which enables non-root accounts to build containers. On M2 this requires the `singularity` command from `module load singularity/3.5.3` and it 
+must be run via the "container" queue, *e.g.*:
 
 `srun -p container -c 1 --mem=6G --pty singularity build --fakeroot --force <container_file_name> <container_definition_file>`
 
@@ -169,7 +169,7 @@ srun -p container -c 1 --mem=6G --pty ./anaconda.sif matrix_multiplication.py
 ### Tasks
 
 1. Run the above examples.
-2. Create a Singularity definition file to run gnuplot.
+2. Create a Singularity definition file to run gnuplot. Hint: `apt-get -y install gnuplot` for Debian-based Linux distributions such as Ubuntu.
 
 ## Docker
 
@@ -220,5 +220,5 @@ srun -p container -c 1 --mem=6G --pty ./anaconda_from_docker.sif matrix_multipli
 ### Tasks
 
 1. Run the above examples.
-2. Create a Docker definition file to run gnuplot and run via Singularity on M2.
+2. Create a Docker definition file to run gnuplot and run via Singularity on M2. Hint: `apt-get -y install gnuplot` for Debian-based Linux distributions such as Ubuntu.
 
