@@ -59,10 +59,10 @@ documentation](https://docs.docker.com).
         * **library** From the [Singularity Container Services](https://cloud.sylabs.io/home)
         * **docker** From the [Docker Hub](https://hub.docker.com)
         * **localimage** From a local container image
-        * Others: There are several other options availabe described [here](https://sylabs.io/guides/3.5/user-guide/definition_files.html#other-bootstrap-agents).
+        * Others: There are several other options available described [here](https://sylabs.io/guides/3.5/user-guide/definition_files.html#other-bootstrap-agents).
     * **From:** The name or tag of the initial container image
     * **Stage:** Support of multi-stage container builds, *e.g.* `devel` and `final`.
-2. Sections: The sections part is compresed of several sections that define
+2. Sections: The sections part is compressed of several sections that define
    what you want to do inside the container.
    * **%setup** Commands to be run outside the container before the build. The
      container's root file system can be access via `${SINGULARITY_ROOTFS}`.
@@ -71,7 +71,7 @@ documentation](https://docs.docker.com).
    * **%post** Commands to be run during the containers build process.
    * **%runscript** Commands to be run via `singularity run` or running the container directly.
    * **%test** Commands to run at the end of the build process to validate the container image.
-   * **%labels** Add metadata to the contaier, *e.g.* `Author`, `Version`, and `Label`.
+   * **%labels** Add metadata to the container, *e.g.* `Author`, `Version`, and `Label`.
    * **%help** Text that will be displayed via `singularity run-help`.
    * **%app** Commands for enabling multiple "apps" from a single container.
 
@@ -111,7 +111,7 @@ Free access to [Singularity Container Services](https://cloud.sylabs.io/home) is
 ### Running Containers
 
 * **run** Run the container, which is execute the `%runscript` section of the definition file.
-* **exec** Execute arbitary commands with in the container.
+* **exec** Execute arbitrary commands with in the container.
 * **app** Run the apps defined in the `%apps` section of the definition file.
 * **shell** Execute the container's default shell.
 
@@ -134,7 +134,7 @@ Here, a full or relative container file path can be given. The executable is
 `python3`, which resides inside the container. The Python script
 `python_script.py` resides outside the container.
 
-If `python3` is defined to run inside the `%runscript` section of the defintion
+If `python3` is defined to run inside the `%runscript` section of the definition
 file the following would be equivalent to the example above.
 
 ```sh
@@ -167,7 +167,7 @@ srun -p container -c 1 --mem=6G --pty ./anaconda.sif matrix_multiplication.py
 * **RUN** Commands to be run during the containers build process.
 * **ENV** Environment variables that will be set during build and at runtime.
 * **CMD** Command to be executed at runtime.
-* **LABEL** Add metadata to the contaier.
+* **LABEL** Add metadata to the container.
 
 ## Building Containers
 
