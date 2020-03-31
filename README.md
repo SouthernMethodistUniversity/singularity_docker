@@ -40,6 +40,14 @@
 
 ## Introduction to Containers
 
+Containers are type of operating system virtualization where a single kernel is shared by all operating systems. This is contrasted with virtual machines that provide a virtualized hardware environment upon which an operating system can run. Containers, as such, are light weight compared to virtual machines, but are restricted to a single kernel type, *.e.g.* Linux. The primary benefits on containers are:
+
+* Isolation
+* Reproducibility
+* Portability
+
+Singularity and Docker are popular toolsets used to create and manage containers on Linux.
+
 ### Singularity and Docker Documentation
 
 This workshop provides an introduction to containers, specifically Singularity
@@ -158,6 +166,11 @@ srun -p container -c 1 --mem=6G --pty singularity build --fakeroot --force anaco
 srun -p container -c 1 --mem=6G --pty ./anaconda.sif matrix_multiplication.py
 ```
 
+### Tasks
+
+1. Run the above examples.
+2. Create a Singularity definition file to run gnuplot.
+
 ## Docker
 
 ### Definition File Structure
@@ -169,19 +182,19 @@ srun -p container -c 1 --mem=6G --pty ./anaconda.sif matrix_multiplication.py
 * **CMD** Command to be executed at runtime.
 * **LABEL** Add metadata to the container.
 
-## Building Containers
+### Building Containers
 
 `docker build -t <container_tag> -f <container_definition_file> <container_definition_path>`
 
-## Moving Containers
+### Moving Containers
 
 `docker push <container_tag>`
 
-## Running Containers
+### Running Containers
 
 `docker run <container_tag>`
 
-## Examples
+### Examples
 
 To build and run on your own computer as Docker is not supported on M2, but
 Docker images can be consumed by Singularity on M2.
@@ -203,4 +216,9 @@ cd singularity_docker/examples
 srun -p container -c 1 --mem=6G --pty singularity build --fakeroot --force anaconda_from_docker.sif anaconda_from_docker.singularity
 srun -p container -c 1 --mem=6G --pty ./anaconda_from_docker.sif matrix_multiplication.py
 ```
+
+### Tasks
+
+1. Run the above examples.
+2. Create a Docker definition file to run gnuplot and run via Singularity on M2.
 
