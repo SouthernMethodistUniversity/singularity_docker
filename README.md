@@ -86,7 +86,8 @@ documentation](https://docs.docker.com).
 
 `singularity build --fakeroot --force <container_file_name> <container_definition_file>`
 
-Currently on M2 the command must be run via the "container" queue, *.e.g.*:
+Currently on M2 the `singularity` command from `module load singularity/3.5.3`
+must be run via the "container" queue, *.e.g.*:
 
 `srun -p container -c 1 --mem=6G --pty singularity build --fakeroot --force <container_file_name> <container_definition_file>`
 
