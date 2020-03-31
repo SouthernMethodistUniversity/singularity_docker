@@ -5,5 +5,5 @@ From: rkalescky/anaconda:latest # Change username as needed
 unset XDG_RUNTIME_DIR
 
 %runscript
-python3
+exec python3 "$@"
 

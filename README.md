@@ -84,11 +84,11 @@ documentation](https://docs.docker.com).
 
 ### Building Containers
 
-`singularity build --fakeroot <container_file_name> <container_definition_file>`
+`singularity build --fakeroot --force <container_file_name> <container_definition_file>`
 
 Currently on M2 the command must be run via the "container" queue, *.e.g.*:
 
-`srun -p container -c 1 --mem=6G singularity build --fakeroot <container_file_name> <container_definition_file>`
+`srun -p container -c 1 --mem=6G --pty singularity build --fakeroot --force <container_file_name> <container_definition_file>`
 
 ### Moving Containers
 
@@ -151,9 +151,9 @@ To build and run:
 module load singularity/3.5.3
 git clone https://github.com/SouthernMethodistUniversity/singularity_docker.git
 cd singularity_docker/examples
-srun -p container -c 1 --mem=6G singularity build --fakeroot compliance.sif compliance.singularity
+srun -p container -c 1 --mem=6G --pty singularity build --fakeroot --force compliance.sif compliance.singularity
 srun -p container -c 1 --mem=6G --x11=first --pty ./compliance.sif # Won't work from HPC portal shell access, no X11
-srun -p container -c 1 --mem=6G singularity build --fakeroot anaconda.sif anaconda.singularity
+srun -p container -c 1 --mem=6G --pty singularity build --fakeroot --force anaconda.sif anaconda.singularity
 srun -p container -c 1 --mem=6G --pty ./anaconda.sif matrix_multiplication.py
 ```
 
@@ -199,7 +199,7 @@ To use the container on M2, log into M2 and then:
 module load singularity/3.5.3
 git clone https://github.com/SouthernMethodistUniversity/singularity_docker.git
 cd singularity_docker/examples
-srun -p container -c 1 --mem=6G singularity build --fakeroot anaconda_from_docker.sif anaconda_from_docker.singularity
+srun -p container -c 1 --mem=6G --pty singularity build --fakeroot --force anaconda_from_docker.sif anaconda_from_docker.singularity
 srun -p container -c 1 --mem=6G --pty ./anaconda_from_docker.sif matrix_multiplication.py
 ```
 

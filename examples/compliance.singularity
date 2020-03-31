@@ -17,5 +17,5 @@ make -j
 make install
 
 %runscript
-compliance
+exec compliance "$@"
 

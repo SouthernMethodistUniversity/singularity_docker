@@ -16,5 +16,5 @@ PATH="/conda/bin:${PATH}"
 unset XDG_RUNTIME_DIR
 
 %runscript
-python3
+exec python3 "$@"
 
