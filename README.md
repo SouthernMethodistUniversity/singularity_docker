@@ -30,19 +30,13 @@
 |April 21     |Profiling Applications on M2                                 |
 |April 28     |Improving Code Vectorization                                 |
 
-## Accessing Resources and Materials on ManeFrame II (M2) for this Workshop
+## Accessing ManeFrame II (M2) for this Workshop
 
-1. Log into M2:
-    * Via Terminal or Putty as usual (see [here](http://faculty.smu.edu/csc/documentation/access.html) for details)
-    * Via the HPC Portal (Note that this doesn't support X11 forwarding)
-        1. Go to [hpc.smu.edu](https://hpc.smu.edu/).
-        2. Sign in using your SMU ID and SMU password.
-        3. Select "ManeFrame II Shell Access" from the "Clusters" drop-down menu.
-4. Get compute node allocation `srun -p compliance -c 1 --mem=6G --pty $SHELL`
-   and press "Enter".
-5. Type `git clone
-   https://github.com/SouthernMethodistUniversity/singularity_docker.git` and
-   press `Enter`.
+* Via Terminal or Putty as usual (see [here](http://faculty.smu.edu/csc/documentation/access.html) for details)
+* Via the HPC Portal (Note that this doesn't support X11 forwarding)
+    1. Go to [hpc.smu.edu](https://hpc.smu.edu/).
+    2. Sign in using your SMU ID and SMU password.
+    3. Select "ManeFrame II Shell Access" from the "Clusters" drop-down menu.
 
 ## Introduction to Containers
 
@@ -87,8 +81,6 @@ documentation](https://docs.docker.com).
 * All files should be owned by system accounts.
 * Document and script the build process rather than making manual changes to a
   container.
-
-[See](https://sylabs.io/guides/3.5/user-guide/definition_files.html#best-practices-for-build-recipes)
 
 ### Building Containers
 
@@ -156,8 +148,9 @@ Both of these methods can be used with `srun` and `sbatch`.
 To build and run:
 
 ```sh
-cd examples
-module load singularity/3.5.2
+module load singularity/3.5.3
+git clone https://github.com/SouthernMethodistUniversity/singularity_docker.git
+cd singularity_docker/examples
 srun -p container -c 1 --mem=6G singularity build --fakeroot compliance.sif compliance.singularity
 srun -p container -c 1 --mem=6G --x11=first --pty ./compliance.sif # Won't work from HPC portal shell access, no X11
 srun -p container -c 1 --mem=6G singularity build --fakeroot anaconda.sif anaconda.singularity
@@ -203,7 +196,7 @@ docker push <docker_username>/anaconda:latest
 To use the container on M2, log into M2 and then:
 
 ```sh
-module load singularity
+module load singularity/3.5.3
 git clone https://github.com/SouthernMethodistUniversity/singularity_docker.git
 cd singularity_docker/examples
 srun -p container -c 1 --mem=6G singularity build --fakeroot anaconda_from_docker.sif anaconda_from_docker.singularity
