@@ -176,13 +176,15 @@ srun -p container -c 1 --mem=6G --pty ./anaconda.sif
 * **CMD**
 * **LABEL**
 
-#### Best Practices
-
 ## Building Containers
 
 `docker build -t <container_tag> -f <container_definition_file>`
 
 ## Moving Containers
 
+`docker push <container_tag>`
+
 ## Running Containers
+
+`docker run <container_tag>`
 
