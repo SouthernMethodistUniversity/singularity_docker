@@ -1,0 +1,21 @@
+Bootstrap: docker
+From: ubuntu:16.04
+
+%post
+apt-get update
+apt-get -y upgrade
+apt-get -y install libgtkmm-2.4-*
+apt-get -y install libgtkglextmm-x11-1.2-*
+apt-get -y install libatlas3-base* libatlas-dev libatlas-doc
+apt-get -y install libgmm++-dev
+apt-get -y install wget
+wget http://www.oc.tu-bs.de/Grunenberg/compliance-3.0.2.tar.gz
+tar -xf compliance-3.0.2.tar.gz
+cd compliance-3.0.2
+./configure --with-blas="/usr/lib/atlas-base/atlas/libblas.so.3.0" --with-lapack="/usr/lib/atlas-base/atlas/liblapack.so.3.0"
+make -j
+make install
+
+%runscript
+compliance
+

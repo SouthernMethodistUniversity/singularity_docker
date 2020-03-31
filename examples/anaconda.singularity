@@ -1,0 +1,27 @@
+Bootstrap: docker
+From: ubuntu:18.04
+
+%post
+apt-get update
+apt-get -y upgrade
+apt-get -y install libx11-6 libxrender1 libxext6 wget bzip2
+wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh -b -f -p /conda
+rm Miniconda3-latest-Linux-x86_64.sh
+PATH="/conda/bin:${PATH}"
+conda update -n base -c defaults conda
+conda install -c anaconda tensorflow
+
+%environment
+PATH="/conda/bin:${PATH}"
+unset XDG_RUNTIME_DIR
+
+%runscript
+python3
+
+%apprun python
+python3 "$@"
+
+%apprun jupyter
+jupyter "$@"
+

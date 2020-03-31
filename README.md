@@ -30,13 +30,19 @@
 |April 21     |Profiling Applications on M2                                 |
 |April 28     |Improving Code Vectorization                                 |
 
-## Accessing Resources on ManeFrame II (M2) for this Workshop
+## Accessing Resources and Materials on ManeFrame II (M2) for this Workshop
 
-1. Go to [hpc.smu.edu](https://hpc.smu.edu/).
-2. Sign in using your SMU ID and SMU password.
-3. Select "ManeFrame II Shell Access" from the "Clusters" drop-down menu.
-4. Get compute node allocation `srun -p development -c 1 --mem=6G --pty $SHELL`
+1. Log into M2:
+    * Via Terminal or Putty as usual (see [here](http://faculty.smu.edu/csc/documentation/access.html) for details)
+    * Via the HPC Portal (Note that this doesn't support X11 forwarding)
+        1. Go to [hpc.smu.edu](https://hpc.smu.edu/).
+        2. Sign in using your SMU ID and SMU password.
+        3. Select "ManeFrame II Shell Access" from the "Clusters" drop-down menu.
+4. Get compute node allocation `srun -p compliance -c 1 --mem=6G --pty $SHELL`
    and press "Enter".
+5. Type `git clone
+   https://github.com/SouthernMethodistUniversity/singularity_docker.git` and
+   press `Enter`.
 
 ## Introduction to Containers
 
@@ -88,6 +94,10 @@ documentation](https://docs.docker.com).
 
 `singularity build --fakeroot <container_file_name> <container_definition_file>`
 
+Currently on M2 the command must be run via the "container" queue, *.e.g.*:
+
+`srun -p container -c 1 --mem=6G singularity build --fakeroot <container_file_name> <container_definition_file>`
+
 ### Moving Containers
 
 #### Copying
@@ -116,28 +126,43 @@ Free access to [Singularity Container Services](https://cloud.sylabs.io/home) is
 
 #### Submitting Jobs Using Containers
 
-Singularity containers can be run similarly to many other applications on M2. For executables defined in the `%runscript` section of the definition file, the container can simply be executed as any other executable by giving the path to the container file. Alternatively, the Singularity verbs above can be used to run various executables within the container.
+Singularity containers can be run similarly to many other applications on M2.
+For executables defined in the `%runscript` section of the definition file, the
+container can simply be executed as any other executable by giving the path to
+the container file. Alternatively, the Singularity verbs above can be used to
+run various executables within the container.
 
-
-```bash
+```sh
 module load singularity
 singularity exec <path_to_container> python3 python_script.py
 ```
 
-Here, a full or relative container file path can be given. The executable is `python3`, which resides inside the container. The Python script `python_script.py` resides outside the container.
+Here, a full or relative container file path can be given. The executable is
+`python3`, which resides inside the container. The Python script
+`python_script.py` resides outside the container.
 
-If `python3` is defined to run inside the `%runscript` section of the defintion file the following would be equivalent to the example above.
+If `python3` is defined to run inside the `%runscript` section of the defintion
+file the following would be equivalent to the example above.
 
-```bash
+```sh
 module load singularity
 <path_to_container> python_script.py
 ```
 
-#### Using Containers with JupyterLab in the HPC Portal
-
-
+Both of these methods can be used with `srun` and `sbatch`.
 
 ### Examples
+
+To build and run:
+
+```sh
+cd examples
+module load singularity/3.5.2
+srun -p container -c 1 --mem=6G singularity build --fakeroot compliance.sif compliance.singularity
+srun -p container -c 1 --mem=6G --x11=first --pty ./compliance.sif # Won't work from HPC portal shell access, no X11
+srun -p container -c 1 --mem=6G singularity build --fakeroot anaconda.sif anaconda.singularity
+srun -p container -c 1 --mem=6G --pty ./anaconda.sif
+```
 
 ## Docker
 
@@ -160,3 +185,4 @@ module load singularity
 ## Moving Containers
 
 ## Running Containers
+
