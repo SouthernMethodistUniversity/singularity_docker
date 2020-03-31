@@ -1,0 +1,9 @@
+Bootstrap: docker
+From: rkalescky/anaconda:latest # Change username as needed
+
+%environment
+unset XDG_RUNTIME_DIR
+
+%runscript
+python3
+

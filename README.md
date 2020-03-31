@@ -161,24 +161,23 @@ module load singularity/3.5.2
 srun -p container -c 1 --mem=6G singularity build --fakeroot compliance.sif compliance.singularity
 srun -p container -c 1 --mem=6G --x11=first --pty ./compliance.sif # Won't work from HPC portal shell access, no X11
 srun -p container -c 1 --mem=6G singularity build --fakeroot anaconda.sif anaconda.singularity
-srun -p container -c 1 --mem=6G --pty ./anaconda.sif
+srun -p container -c 1 --mem=6G --pty ./anaconda.sif matrix_multiplication.py
 ```
 
 ## Docker
 
 ### Definition File Structure
 
-* **FROM**
-* **COPY**
-* **RUN**
-* **ENV**
-* **USER**
-* **CMD**
-* **LABEL**
+* **FROM** The name or tag of the initial container image.
+* **COPY** Copy files to the container of the form `<source> <destination>`.
+* **RUN** Commands to be run during the containers build process.
+* **ENV** Environment variables that will be set during build and at runtime.
+* **CMD** Command to be executed at runtime.
+* **LABEL** Add metadata to the contaier.
 
 ## Building Containers
 
-`docker build -t <container_tag> -f <container_definition_file>`
+`docker build -t <container_tag> -f <container_definition_file> <container_definition_path>`
 
 ## Moving Containers
 
@@ -187,4 +186,27 @@ srun -p container -c 1 --mem=6G --pty ./anaconda.sif
 ## Running Containers
 
 `docker run <container_tag>`
+
+## Examples
+
+To build and run on your own computer as Docker is not supported on M2, but
+Docker images can be consumed by Singularity on M2.
+
+```sh
+git clone https://github.com/SouthernMethodistUniversity/singularity_docker.git
+cd singularity_docker/examples
+docker build -t <docker_username>/anaconda -f anaconda.docker .
+docker run -v $(pwd)/matrix_multiplication.py:/input_file anaconda:latest
+docker push <docker_username>/anaconda:latest
+```
+
+To use the container on M2, log into M2 and then:
+
+```sh
+module load singularity
+git clone https://github.com/SouthernMethodistUniversity/singularity_docker.git
+cd singularity_docker/examples
+srun -p container -c 1 --mem=6G singularity build --fakeroot anaconda_from_docker.sif anaconda_from_docker.singularity
+srun -p container -c 1 --mem=6G --pty ./anaconda_from_docker.sif matrix_multiplication.py
+```
 

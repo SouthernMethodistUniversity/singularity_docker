@@ -1,0 +1,16 @@
+FROM ubuntu:18.04
+
+RUN apt-get update\
+ && apt-get -y install wget bzip2\
+ && wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh\
+ && bash Miniconda3-latest-Linux-x86_64.sh -b -f -p /conda\
+ && rm Miniconda3-latest-Linux-x86_64.sh\
+ && touch /input_file
+
+ENV PATH="/conda/bin:${PATH}"
+
+RUN conda update -n base -c defaults conda\
+ && conda install -c anaconda numpy
+
+CMD ["python3", "/input_file"]
+
