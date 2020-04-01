@@ -1,4 +1,4 @@
-# Creating Portable Environments with Docker and Singularity
+# Creating Portable Environments with Singularity and Docker
 
 ## Center for Scientific Computation (CSC)
 
