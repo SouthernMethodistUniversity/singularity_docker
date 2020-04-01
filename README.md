@@ -204,7 +204,7 @@ Docker images can be consumed by Singularity on M2.
 git clone https://github.com/SouthernMethodistUniversity/singularity_docker.git
 cd singularity_docker/examples
 docker build -t <docker_username>/anaconda -f anaconda.docker .
-docker run -v $(pwd)/matrix_multiplication.py:/input_file anaconda:latest
+docker run -v $(pwd)/matrix_multiplication.py:/input_file <docker_username>/anaconda:latest
 docker push <docker_username>/anaconda:latest
 ```
 
